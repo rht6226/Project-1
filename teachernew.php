@@ -43,7 +43,7 @@ if($k==$l)
 		{	
 		    if($regno==$row['regno'] or $email==$row['email'])
 		    {
-		        echo "This Registration no. is already registered. Please Login to view your profile.";$a="1";
+		        echo "<h2>This Registration no. is already registered. Please Login to view your profile.</h2>";$a="1";
 		        break;
 		    }
 		}
@@ -52,10 +52,10 @@ if($k==$l)
 			$m="a$x";$n="b$x";
 			$j=$$m;
 			$u=$$n;
-			$sql="SELECT $u FROM class WHERE Batch= $j";
+			$sql="SELECT $u FROM class WHERE Batch= '$j'";
 			$result = mysqli_query($conn,$sql);
 			if($result)
-			{echo "$j $u  The Class and Batch selected are already selected. Please select correct data!";$a='1';break;}
+			{echo " <h2> The Batch $j and subject $u  selected are already registered under a different username. Please select correct data! </h2>";$a='1';break;}
 		}
 		    $result;
 			if($a=="0")

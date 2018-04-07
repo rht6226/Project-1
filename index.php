@@ -3,26 +3,44 @@ session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $host='localhost';
-$user='id5276922_root';
-$pass='abcdef';
+$user='root';
+$pass='';
 $db='id5276922_first';
 
 $conn=mysqli_connect($host, $user, $pass, $db) or die("Didn't Connect to the server. Please check your connection! If problem persists please try after sometime");
 
 $pas=mysqli_real_escape_string($conn,$_POST["pass"]);
 $email=mysqli_real_escape_string($conn,$_POST["email"]);
-$sql = "SELECT * FROM Class2";
-$result = mysqli_query($conn,$sql);
 $a="0";
+$sql = "SELECT * FROM teacher";
+$sqli="SELECT * FROM student";
+$result = mysqli_query($conn,$sql);
+$resultt=mysqli_query($conn,$sqli);
 while($row=mysqli_fetch_array($result))
 {	
     if($email==$row['email'] and $pas==$row['pass'])
-    {   $_SESSION["name"]=$row['name'];
-        header("Location: login.php");
-        $a="1";sleep(2);
+    {   
+		$_SESSION["regno"]=$row['regno'];
+	 	$_SESSION["name"]=$row['name'];
+        header("Location: teacherlogin.php");
+        $a="1";
         break;
+    }
 }
-}
+    
+	if($a=="0")
+	{	
+		while($row=mysqli_fetch_array($resultt))
+		{if($email==$row['email'] and $pas==$row['pass'])
+		$_SESSION["regno"]=$row['regno'];
+		$_SESSION["name"]=$row['name'];
+        header("Location: studentlogin.php");
+        $a="1";
+        break;}
+	}
+    
+    {echo "<script>alert('The email ID and Password entered does not match')</script>";}
+	
 }
 ?>
 <!DOCTYPE html>
@@ -101,13 +119,13 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="http://mnnit.ac.in">MNNIT</a>
+        <a class="nav-link" href="#">MNNIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="http://academics.mnnit.ac.in/new">Academics</a>
+        <a class="nav-link" href="#">Academics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">About Us</a>
+        <a class="nav-link" href="aboutus.html">About us</a>
       </li>
     </ul>
   </div>
