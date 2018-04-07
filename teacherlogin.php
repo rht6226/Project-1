@@ -32,7 +32,7 @@
   
  
 
-<title>Userlogin</title>
+<title>Take Attendance</title>
 
 <style>
 .titleSec {
@@ -88,7 +88,7 @@ color:snow;}
 
 
 <nav class="navbar navbar-expand-md navstyle navbar-light fixed-top">
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="index.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -96,13 +96,13 @@ color:snow;}
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="#">MNNIT</a>
+        <a class="nav-link" href="http://mnnit.ac.in">MNNIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Academics</a>
+        <a class="nav-link" href="http://academics.mnnit.ac.in">Academics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Admissions</a>
+        <a class="nav-link" href="aboutus.html">About Us</a>
       </li>
     </ul>
   </div>
@@ -324,7 +324,7 @@ while($var= mysqli_fetch_array($result)) {
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center" style="background-color">
         © 2018 Copyright:
-        <a href="#"> Legion Initiative</a>
+        <a href="aboutus.html"> Legion Initiative</a>
     </div>
     <!--/.Copyright-->
 

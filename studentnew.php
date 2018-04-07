@@ -48,7 +48,7 @@ if($a=="0")
 			$sqli="INSERT INTO engmech_$batch (id) VALUES ('$regno')";$res=mysqli_query($conn, $sqli);
 			$sqli="INSERT INTO engmechlab_$batch (id) VALUES ('$regno')";$res=mysqli_query($conn, $sqli);
 			
-				    if (mysqli_query($conn, $sql) and mysqli_query($conn, $sqli)) 
+				    if (mysqli_query($conn, $sql)) 
 		        		{
 		            		echo "You have signed up successfully! Please Login to view your profile";
 		        		} 
