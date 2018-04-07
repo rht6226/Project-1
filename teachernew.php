@@ -14,8 +14,6 @@ if(isset($_POST["name"]))
 	$name=mysqli_real_escape_string($conn,$_POST["name"]);
 if(isset($_POST["email"]))
 	$email=mysqli_real_escape_string($conn,$_POST["email"]);
-if(isset($_POST["user"]))
-	$user=mysqli_real_escape_string($conn,$_POST["user"]);
 if(isset($_POST["root"]))
 	$root=mysqli_real_escape_string($conn,$_POST["root"]);
 
@@ -71,7 +69,7 @@ if($k==$l)
 				
 				if($result)
 				   {
-					   $sql="INSERT INTO teacher (regno, pass, name, email, user) VALUES ('$regno','$pas','$name', '$email', '$user')";
+					   $sql="INSERT INTO teacher (regno, pass, name, email, user) VALUES ('$regno','$pas','$name', '$email', 'teacher')";
 				    if (mysqli_query($conn, $sql)) 
 		        		{
 		            		echo "You have signed up successfully! Please Login to view your profile";

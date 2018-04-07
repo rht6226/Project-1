@@ -112,6 +112,7 @@ color:snow;}
     
     
     <div class="container title">
+        <form>
     <div class="row justify-content-between">
         <div class="col-sm-4">
             <?php
@@ -140,12 +141,12 @@ $st = mysqli_query($connect,"SELECT * FROM users ");
         
         
         <div class="col-sm-4">
-            <form>
+        
             <input class="ddmenu" type="date">
             <button type="submit" class="btn btn-success btn-lg">Submit</button>
-            </form>
             
-        </div></div>
+            
+        </div></div></form></div>
         
         
         <div class="container tableofdata">

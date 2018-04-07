@@ -129,7 +129,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
  </div>
       <div class="form-group">
     <label for="name">Root Password</label>
-    <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" required>
+    <input type="name" class="form-control" id="name" placeholder="Enter name" name="root" required>
  </div>
       
 <div>

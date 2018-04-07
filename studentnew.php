@@ -14,8 +14,6 @@ if(isset($_POST["name"]))
 	$name=mysqli_real_escape_string($conn,$_POST["name"]);
 if(isset($_POST["email"]))
 	$email=mysqli_real_escape_string($conn,$_POST["email"]);
-if(isset($_POST["user"]))
-	$user=mysqli_real_escape_string($conn,$_POST["user"]);
 if(isset($_POST["batch"]))
 	$batch=mysqli_real_escape_string($conn,$_POST["batch"]);
 $sql = "SELECT * FROM student";
@@ -31,7 +29,7 @@ $sql = "SELECT * FROM student";
 		}
 if($a=="0")
 		 {
-			$sql="INSERT INTO student (regno, pass, name, email, user, batch) VALUES ('$regno','$pas','$name', '$email', '$user', '$batch')";
+			$sql="INSERT INTO student (regno, pass, name, email, user, batch) VALUES ('$regno','$pas','$name', '$email', 'student', '$batch')";
 			$sqli="INSERT INTO maths_$batch (id) VALUES ('$regno')";$res=mysqli_query($conn, $sqli);
 			$sqli="INSERT INTO ecology_$batch (id) VALUES ('$regno')";$res=mysqli_query($conn, $sqli);
 			$sqli="INSERT INTO c_$batch (id) VALUES ('$regno')";$res=mysqli_query($conn, $sqli);
