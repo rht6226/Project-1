@@ -21,7 +21,7 @@ while($row=mysqli_fetch_array($result))
         header("Location: login.php");
         $a="1";sleep(2);
         break;
-    }
+}
 }
 }
 ?>
