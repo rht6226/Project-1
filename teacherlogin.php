@@ -9,7 +9,23 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     
-    
+ <script>
+    function select() {
+        var items = document.getElementsByName('attend');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+    }
+
+    function unselect() {
+        var items = document.getElementsByName('attend');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+    }			
+</script>   
 
     
 
@@ -44,8 +60,8 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
   padding-top:10vh;
 }
     .tableofdata{
-margin:70px auto 40px 0px;
-    padding: 10%;}
+margin: 10vh 10% 10vh 10%;
+    padding-left:50px;}
 
     .title{
         margin-top: 50px;
@@ -112,7 +128,7 @@ color:snow;}
     
     
     <div class="container title">
-        <form>
+        <form action="">
     <div class="row justify-content-between">
         <div class="col-sm-4">
             <?php
@@ -141,7 +157,6 @@ $st = mysqli_query($connect,"SELECT * FROM users ");
         
         
         <div class="col-sm-4">
-        
             <input class="ddmenu" type="date">
             <button type="submit" class="btn btn-success btn-lg">Submit</button>
             
@@ -174,8 +189,12 @@ echo  " <div class='container'>
         <th>Branch</th>
         <th>Present</th>
         </tr>
+        
         </thead>
-        <tbody>";
+        <tbody>
+        <tr><td><button onclick='select()' class='btn btn-sm btn-success'>Select All</button></th><td>&nbsp;</td>
+        <td>&nbsp;</td><td>&nbsp;</td>
+        <td><button onclick='unselect()' class='btn btn-sm btn-danger'>Unselect All</button></th> </tr>";
             
             
 $serial = 1;
@@ -189,7 +208,7 @@ while($var= mysqli_fetch_array($result)) {
         "</td><td>" 
         . $var['password'] .
         "</td><td>" 
-        ."<form><input type='checkbox' checked style='width:25px; height:25px;'>". 
+        ."<form><input type='checkbox' name='attend' value='p' checked style='width:25px; height:25px;'>". 
         "</td>" ;
         
         $serial = $serial +1;
