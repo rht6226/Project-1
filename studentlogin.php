@@ -70,7 +70,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
       
     <div class="col-lg-4 col-sm-4 cl-md-4">
     <?php 
-    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>";
+    echo "<h3 class='h3 display-5'>".$_SESSION["batch"]."</h3>";
 	?>
     <span><br>MNNIT | Student <br> </span>
     </div>
@@ -104,8 +104,8 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
                 <div class="container tableofdata">
             
             
-<?php #connection to database established
-               $host = "localhost";
+<?php
+            $host = "localhost";
             $username = "root";
             $password = "";
             $database= "id5276922_first";
@@ -116,35 +116,27 @@ die("Could not connect to the Database please check your internet connection"); 
 						
 $subject=array("maths","english","physics","ed","edlab","ecology","physicslab","chemistry","chemistrylab","workshop","workshoplab","commwork","c","clab","englishlab","engmech","engmechlab");
 
-$st=mysqli_query($connect,"SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=maths_a1");
-$n=$_SESSION["batch"];
-$m=$_SESSION["regno"];
+
+$n=$_SESSION['batch'];
+$m=$_SESSION['regno'];
+echo "$m $n";
 $ru=mysqli_query($connect,"SELECT * FROM maths_$n WHERE id=$m");
 echo "MATHS <br>";
-echo  " <div class='container'>
+echo  "<div class='container'>
         <table class='table'>";
-$serial = 1;
-while($var= mysqli_fetch_array($st) AND $va=mysqli_fetch_array($ru) ) {
-	
-    echo "<tr><td>" 
-        . $serial . 
-        "</td><td>" 
-        . $var .
-        "</td><td>" 
-        . $va .
-        "</td>";
-        
-        $serial = $serial +1;
-                                            }
-echo "</table>"
-
+while ($row = mysqli_fetch_array($ru)) {
+    foreach($row as $field) {
+         echo "$field"  ;
+    }
+ 
+}
 ?>
     </div>
             
     </div>
  
 
-    <script> //toggling the display of content via javascript
+    <script>
         function toggle() {
     
     if (document.getElementById("table").style.display === "none") {
@@ -266,7 +258,7 @@ echo "</table>"
   
 
     <script src="bootstrap/jquery.js"></script>
-    <script src="bootstrap-4.0.0/dist/js/bootstrap.bundle.js.map"></script><!--CDN-->
+    <script src="bootstrap-4.0.0/dist/js/bootstrap.bundle.js.map"></script>
     <script src="bootstrap/js.js"></script>
 
     <script src="bootstrap/js/bootstrap.js"></script>

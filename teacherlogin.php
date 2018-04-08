@@ -123,7 +123,7 @@ color:snow;}
     <span><br>MNNIT | Professor <br> </span>
     </div>
           <div class="col-sm-1 col-lg-1 col-md-1">
-            <form action="logout.php"><button type="submit" class="btn btn-sm btn-danger">Log out</button></form>
+            <button type="button" class="btn btn-sm btn-danger">Log out</button>
           </div>
   </div>
     

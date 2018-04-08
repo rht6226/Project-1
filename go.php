@@ -1,14 +1,14 @@
-<?php session_start(); #session started and connection to database established
+<?php session_start();
 {
 $host='localhost';
 $user='root';
 $pass='';
 $db='id5276922_first';
 
-$conn=mysqli_connect($host, $user, $pass, $db) or die("Didn't Connect to the server. Please check your connection! If problem persists please try after sometime");#if couldn't connect to database
+$conn=mysqli_connect($host, $user, $pass, $db) or die("Didn't Connect to the server. Please check your connection! If problem persists please try after sometime");
 $select=mysqli_real_escape_string($conn,$_POST["select"]);
 $date=mysqli_real_escape_string($conn,$_POST["date"]);
-$_SESSION["select"]=$select;#session variables that were posted by the user via the form provided in teacherlogin.php
+$_SESSION["select"]=$select;
 $_SESSION["date"]=$date;
 }?>
 <!DOCTYPE html>
@@ -18,8 +18,31 @@ $_SESSION["date"]=$date;
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Autour One">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /><!--CDN-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     
+ <script>
+    function select() {
+        var items = document.getElementById('demo');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+    }
+
+    function unselect() {
+        var items = document.getElementById('demo');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+    }			
+</script>   
+
+    
+
+  
+ 
+
 <title>Userlogin</title>
 
 <style>
@@ -107,12 +130,12 @@ color:snow;}
       
     <div class="col-lg-4 col-sm-4 cl-md-4">
     <?php 
-    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>"; #displayin the username on the new page via session variables
+    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>";
 	?>
     <span><br>MNNIT | Professor <br> </span>
     </div>
           <div class="col-sm-1 col-lg-1 col-md-1">
-            <form action="logout.php"><button type="submit" class="btn btn-sm btn-danger">Log out</button></form>
+            <button type="button" class="btn btn-sm btn-danger">Log out</button>
           </div>
   </div>
     
@@ -129,15 +152,13 @@ $host = "localhost";
 $username = "root";
 $password = "";
 $database= "id5276922_first";
-$connect = mysqli_connect($host ,$username , $password , $database); #connection to database started
+$connect = mysqli_connect($host ,$username , $password , $database);
 if (!$connect)	{
 die("could not connect to the databse");    }
 
     $result = mysqli_query($connect , "SELECT $select.id, student.name FROM $select, student WHERE $select.id=student.regno");
     $hum="IF NOT EXISTS (SELECT NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$select' AND table_schema='id5276922_first' AND column_name='$date') THEN ALTER TABLE $select ADD $date varchar(20); END IF";
     $tum=mysqli_query($connect,$hum);
-            
-            /*creating the table and then adding the contents directly from database such that they appear on the page as part of the table*/
 echo  " <div class='container'>
         <table class='table'>
         <thead>
@@ -153,7 +174,7 @@ echo  " <div class='container'>
         <tr><td><button onclick='select()' class='btn btn-sm btn-success'>Select All</button></th><td>&nbsp;</td>
         <td>&nbsp;</td><td>&nbsp;</td>
         <td><button onclick='unselect()' class='btn btn-sm btn-danger'>Unselect All</button></th> </tr>";
-echo "<form action='action.php' method='post'>";
+echo "<form action='gone.php' method='post'>";
             
             
 $serial = 1;
@@ -165,17 +186,17 @@ while($var= mysqli_fetch_array($result)) {
         "</td><td>" 
         . $var['id'] .
         "</td><td>" 
-        ."<input type='checkbox' id='attend' name='$serial' value='1' checked style='width:25px; height:25px;'>". 
+        ."<input type='checkbox' id='demo' name='$serial' value='1' checked style='width:25px; height:25px;'>". 
         "</td>" ;
         
         $serial = $serial +1;
                                             }
         
             
-        echo"</form>
+        echo"
             </tbody>
              </table>
-             <button type='submit' class='btn btn-long btn-success' action=''>Submit Attendence</submit>";
+             <button type='submit' class='btn btn-long btn-success'>Submit Attendence</submit></form>";
 
                            ?>
     </div>
