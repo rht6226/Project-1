@@ -90,5 +90,5 @@ if($k==$l)
 }
 	
 else {echo "<script>alert('Wrong data entered. Please enter data carefully!')</script>
-            <script>window.location='signupnow.php'</script>";} 
+            <script>window.location='signupnow.php'</script>";} #incase data entered was wrong
 ?>

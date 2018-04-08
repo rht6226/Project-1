@@ -266,7 +266,7 @@ echo "</table>"
   
 
     <script src="bootstrap/jquery.js"></script>
-    <script src="bootstrap-4.0.0/dist/js/bootstrap.bundle.js.map"></script>
+    <script src="bootstrap-4.0.0/dist/js/bootstrap.bundle.js.map"></script><!--CDN-->
     <script src="bootstrap/js.js"></script>
 
     <script src="bootstrap/js/bootstrap.js"></script>
