@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start();#session stated and connection to the database established
 $host='localhost';
 $user='root';
 $pass='';
@@ -41,7 +41,8 @@ if($k==$l)
 		{	
 		    if($regno==$row['regno'] or $email==$row['email'])
 		    {
-		        echo "<h2>This Registration no. is already registered. Please Login to view your profile.</h2>";$a="1";
+		        echo "<script>alert('This Registration no. is already registered. Please Login to view your profile.')</script>
+                      <script>window.location='signupnow.php'</script>" ;$a="1"; #if unique id or email already exist in the database
 		        break;
 		    }
 		}
@@ -50,10 +51,10 @@ if($k==$l)
 			$m="a$x";$n="b$x";
 			$j=$$m;
 			$u=$$n;
-			$sql="SELECT $u FROM class WHERE Batch= '$j'";
+			$sql="SELECT $u FROM class WHERE Batch= $j";
 			$result = mysqli_query($conn,$sql);
-			if($result)
-			{echo " <h2> The Batch $j and subject $u  selected are already registered under a different username. Please select correct data! </h2>";$a='1';break;}
+			if($result!=='0')
+			{echo " <Script> alert('The Batch $j and subject $u  selected are already registered under a different username. Please select correct data!') </script><script>window.location='signupnow.php'</script>";$a='1';break;} #if one teacher is already registered to a group
 		}
 		    $result;
 			if($a=="0")
@@ -64,7 +65,8 @@ if($k==$l)
 					$h=$$m;
 					$u=$$n;
 					$sqli="UPDATE class SET  $u='$regno' WHERE Batch = '$h' ";
-					$result=mysqli_query($conn, $sqli);echo "Registered as Teacher of $u of Batch $h <br>";
+					$result=mysqli_query($conn, $sqli);echo "<script>alert('Registered as Teacher of $u of Batch $h')</script>
+                    <script>window.location='index.php'</script><br>";  #registration successful , Redirecting to login page
 				}
 				
 				if($result)
@@ -72,11 +74,12 @@ if($k==$l)
 					   $sql="INSERT INTO teacher (regno, pass, name, email, user) VALUES ('$regno','$pas','$name', '$email', 'teacher')";
 				    if (mysqli_query($conn, $sql)) 
 		        		{
-		            		echo "You have signed up successfully! Please Login to view your profile";
+		            		echo "<script>alert('You have signed up successfully! Please Login to view your profile')</script>
+                            <script>window.location='index.php'</script>";
 		        		} 
 		        	else 
 		        		{
-		            		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		            		echo "Error: " . $sql . "<br>" . mysqli_error($conn); #error generated
 		        
 		        		}
 				   }
@@ -86,5 +89,6 @@ if($k==$l)
 		    }
 }
 	
-else {echo "Wrong data entered. Please enter data carefully!";}
+else {echo "<script>alert('Wrong data entered. Please enter data carefully!')</script>
+            <script>window.location='signupnow.php'</script>";} 
 ?>

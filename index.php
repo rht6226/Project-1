@@ -1,4 +1,4 @@
-<?php
+<?php #login via checking each and every row in the table
 session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -6,7 +6,7 @@ $host='localhost';
 $user='root';
 $pass='';
 $db='id5276922_first';
-
+#connect to database
 $conn=mysqli_connect($host, $user, $pass, $db) or die("Didn't Connect to the server. Please check your connection! If problem persists please try after sometime");
 
 $pas=mysqli_real_escape_string($conn,$_POST["pass"]);
@@ -21,6 +21,7 @@ while($row=mysqli_fetch_array($result))
     if($email==$row['email'] and $pas==$row['pass'])
     {   
 		$_SESSION["regno"]=$row['regno'];
+        $_SESSION["batch"]=$row['batch'];
 	 	$_SESSION["name"]=$row['name'];
         header("Location: teacherlogin.php");
         $a="1";
@@ -39,7 +40,7 @@ while($row=mysqli_fetch_array($result))
         break;}
 	}
     
-    {echo "<script>alert('The email ID and Password entered does not match')</script>";}
+    {echo "<script>alert('The email ID and Password entered does not match')</script>";}#if login fails
 	
 }
 ?>
@@ -110,8 +111,8 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
 <body>
 
 <div class="hero-image row">
-<nav class="navbar navbar-expand-md navbg  navbar-light fixed-top">
-  <a class="navbar-brand" href="#">Home</a>
+<nav class="navbar navbar-expand-md navbg  navbar-light fixed-top"> <!--bootstrap classes for navigation bar--> 
+  <a class="navbar-brand" href="index.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -119,10 +120,10 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="#">MNNIT</a>
+        <a class="nav-link" href="http://mnnit.ac.in">MNNIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Academics</a>
+        <a class="nav-link" href="http://academics.mnnit.ac.in">Academics</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="aboutus.html">About us</a>
@@ -150,7 +151,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
 
         <div class="modal-body">
 
-           <form  action="" method="post">
+           <form  action="" method="post"> <!--data submission via POST method-->
   <div id="body1" class="form-group">
     <label for="email">Email address</label>
     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
@@ -173,7 +174,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
 
 
         <div class="modal-footer">
-        <p>Don't have an account <a href="signupnow.php">Sign up here</a></p>
+        <p>Don't have an account <a href="signupnow.php">Sign up here</a></p><!--hyperlink to the sign up page-->
 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
@@ -192,7 +193,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
   <img src="images.png" style="float:left"></div><div class="col-sm-10">
   <br/>
   <br><br><br><br><br><br>
- <h3> Track Your Attendance</h3>
+ <h3> Track Your Attendance</h3> <!--intro-->
  <br/>
  <p>>>Now simplify the tedious task of keeping attendance.</p>
  <p>>>Manage attendance of your classes/groups with just a click away.Tracking is entirely web based so you can enter data from anywhere you can access the internet!</p><p>>>You will have a variety of reports at your fingertips. You can view and print in depth reports by student or class and export them to Excel or download and share via PDF.</p>
@@ -292,7 +293,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center" style="background-color">
         © 2018 Copyright:
-        <a href="#"> Legion Initiative</a>
+        <a href="aboutus.php"> Legion Initiative</a>
     </div>
     <!--/.Copyright-->
 
@@ -308,13 +309,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
 <script src="bootstrap/js.js"></script>
 
 <script src="bootstrap/js/bootstrap.js"></script>
-<script>
-function changeDiv()
-{
-document.getElementById('body').style.display = "hidden"; // hide body div tag
-document.getElementById('body1').style.display = "block"; // show body1 div tag
-document.getElementById('body1').innerHTML = "If you can see this, JavaScript function worked"; // display text if JavaScript worked
-}</script>
+
 
 
 </body>

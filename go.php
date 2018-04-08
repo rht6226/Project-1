@@ -1,4 +1,17 @@
-<?php session_start();?><!DOCTYPE html>
+<?php session_start(); #session started and connection to database established
+{
+$host='localhost';
+$user='root';
+$pass='';
+$db='id5276922_first';
+
+$conn=mysqli_connect($host, $user, $pass, $db) or die("Didn't Connect to the server. Please check your connection! If problem persists please try after sometime");#if couldn't connect to database
+$select=mysqli_real_escape_string($conn,$_POST["select"]);
+$date=mysqli_real_escape_string($conn,$_POST["date"]);
+$_SESSION["select"]=$select;#session variables that were posted by the user via the form provided in teacherlogin.php
+$_SESSION["date"]=$date;
+}?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6,7 +19,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Autour One">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+    
 <title>Userlogin</title>
 
 <style>
@@ -16,6 +29,11 @@ background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
 background: linear-gradient(to right, #92FE9D, #00C9FF);
 height : 26vh;
 }
+    .navstyle {
+         background: #00C9FF;
+background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
+background: linear-gradient(to right, #92FE9D, #00C9FF);
+    }
 .profilePic  {
   height:100px;
   width:100px;
@@ -29,18 +47,35 @@ height : 26vh;
 .content{
   padding-top:10vh;
 }
-    .navstyl    {
-        background: #00C9FF;
+    .tableofdata{
+margin: 10vh 10% 10vh 10%;
+    padding-left:50px;}
+
+    .title{
+        margin-top: 50px;
+}
+    .success{
+ background: #00C9FF;
 background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
 background: linear-gradient(to right, #92FE9D, #00C9FF);
-}
+color:snow;}
+    .ddmenu {
+        width:70%;
+        height:50px;
+        padding: 0.375rem 0.75rem;
+        line-height:1rem;
+        border:1px solid #ced4da;
+        border-radius: 0.25rem;
+    }
+
+
 
 </style>
 </head>
 <body>
 
 
-<nav class="navbar navbar-expand-md navstyl navbar-light fixed-top">
+<nav class="navbar navbar-expand-md navstyle navbar-light fixed-top">
   <a class="navbar-brand" href="#">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -60,6 +95,8 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     </ul>
   </div>
 </nav>
+    
+
 
 <div class="jumbotron titleSec">
 
@@ -70,95 +107,91 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
       
     <div class="col-lg-4 col-sm-4 cl-md-4">
     <?php 
-    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>";
+    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>"; #displayin the username on the new page via session variables
 	?>
-    <span><br>MNNIT | Student <br> </span>
+    <span><br>MNNIT | Professor <br> </span>
     </div>
-          
           <div class="col-sm-1 col-lg-1 col-md-1">
-            <button type="button" class="btn btn-sm btn-danger" onclick="<? echo logout(); ?>">Log out</button>
-              
-              
-              
-              
-      </div>
+            <form action="logout.php"><button type="submit" class="btn btn-sm btn-danger">Log out</button></form>
+          </div>
   </div>
     
-  </div>
     
    
-<div class="container navs">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <button class="nav-link" onclick="toggle()" >Attendence</button>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Profile</a>
-    </li>
-    
-  </ul>
-</div>
+        
+        
+        <div class="container tableofdata">
+            
+            
+<?php   
 
-    
-    <div id="table"> 
-                <div class="container tableofdata">
-            
-            
-<?php #connection to database established
-               $host = "localhost";
-            $username = "root";
-            $password = "";
-            $database= "id5276922_first";
-            $connect = mysqli_connect($host ,$username , $password ,$database);
+$host = "localhost";
+$username = "root";
+$password = "";
+$database= "id5276922_first";
+$connect = mysqli_connect($host ,$username , $password , $database); #connection to database started
 if (!$connect)	{
-die("Could not connect to the Database please check your internet connection");    }
-            
-						
-$subject=array("maths","english","physics","ed","edlab","ecology","physicslab","chemistry","chemistrylab","workshop","workshoplab","commwork","c","clab","englishlab","engmech","engmechlab");
+die("could not connect to the databse");    }
 
-$st=mysqli_query($connect,"SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=maths_a1");
-$n=$_SESSION["batch"];
-$m=$_SESSION["regno"];
-$ru=mysqli_query($connect,"SELECT * FROM maths_$n WHERE id=$m");
-echo "MATHS <br>";
+    $result = mysqli_query($connect , "SELECT $select.id, student.name FROM $select, student WHERE $select.id=student.regno");
+    $hum="IF NOT EXISTS (SELECT NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$select' AND table_schema='id5276922_first' AND column_name='$date') THEN ALTER TABLE $select ADD $date varchar(20); END IF";
+    $tum=mysqli_query($connect,$hum);
+            
+            /*creating the table and then adding the contents directly from database such that they appear on the page as part of the table*/
 echo  " <div class='container'>
-        <table class='table'>";
+        <table class='table'>
+        <thead>
+        <tr class='success'>
+        <th>S. No. </th>
+        <th>Name</th>
+        <th>Registration Number</th>
+        <th>Attendance</th>
+        </tr>
+        
+        </thead>
+        <tbody>
+        <tr><td><button onclick='select()' class='btn btn-sm btn-success'>Select All</button></th><td>&nbsp;</td>
+        <td>&nbsp;</td><td>&nbsp;</td>
+        <td><button onclick='unselect()' class='btn btn-sm btn-danger'>Unselect All</button></th> </tr>";
+echo "<form action='action.php' method='post'>";
+            
+            
 $serial = 1;
-while($var= mysqli_fetch_array($st) AND $va=mysqli_fetch_array($ru) ) {
-	
+while($var= mysqli_fetch_array($result)) {
     echo "<tr><td>" 
         . $serial . 
         "</td><td>" 
-        . $var .
+        . $var['name'] .
         "</td><td>" 
-        . $va .
-        "</td>";
+        . $var['id'] .
+        "</td><td>" 
+        ."<input type='checkbox' id='attend' name='$serial' value='1' checked style='width:25px; height:25px;'>". 
+        "</td>" ;
         
         $serial = $serial +1;
                                             }
-echo "</table>"
-
-?>
-    </div>
+        
             
+        echo"</form>
+            </tbody>
+             </table>
+             <button type='submit' class='btn btn-long btn-success' action=''>Submit Attendence</submit>";
+
+                           ?>
     </div>
- 
 
-    <script> //toggling the display of content via javascript
-        function toggle() {
+
+<div class="container content">
+  <div class="row" >
+
+</div>
+
+</div>
+</div>
     
-    if (document.getElementById("table").style.display === "none") {
-        document.getElementById("table").style.display = "block";
-    } else {
-        document.getElementById("table").style.display = "none";
-    }
-}
-    </script>
-
-
-
-
-<div id="not-table">
+<div class="container">
+    
+    </div>
 
 <footer class="page-footer font-small mdb-color lighten-3 pt-4 mt-4 bgc">
 
@@ -253,24 +286,22 @@ echo "</table>"
     <!--/.Copyright-->
 
 </footer>
-</div>
 
 
 
-
-
-
-    
 
 
   
+
+
+   
 
     <script src="bootstrap/jquery.js"></script>
     <script src="bootstrap-4.0.0/dist/js/bootstrap.bundle.js.map"></script>
     <script src="bootstrap/js.js"></script>
 
     <script src="bootstrap/js/bootstrap.js"></script>
-    
+    <script>
 
 </body>
 </html>

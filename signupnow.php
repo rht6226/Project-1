@@ -11,7 +11,7 @@
 
 <style>
 .titleSec {
-  background: #00C9FF;
+  background: #00C9FF; /*background-gradient*/
 background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
 background: linear-gradient(to right, #92FE9D, #00C9FF);
 height : 40vh;
@@ -44,7 +44,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
         color:snow;
     }
     .select{
-        width:50%;
+        width:50%; /*resizing and styling the dropdown select*/
         padding: 0.375rem 0.75rem;
         line-height:1rem;
         border:1px solid #ced4da;
@@ -56,7 +56,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
 
 
 <nav class="navbar navbar-expand-md  navbar-light navd fixed-top">
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="index.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -70,7 +70,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
         <a class="nav-link" href="http://www.academics.mnnit.ac.in/new">Academics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Admissions</a>
+        <a class="nav-link" href="aboutus">About Us</a>
       </li>
     </ul>
   </div>
@@ -82,11 +82,11 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     <h3 class="head">Sign up as : </h3>
    <div class="row  justify-content-around pad">
     <div class="col-sm-1 col-md-1">
-       <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signupt">Teacher</button>
+       <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signupt">Teacher</button> <!--modal for sign up of teacher via data-toggle and data-target-->
   </div>
        
        <div class="col-sm-1 col-md-1">
-       <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#signups"  >Student</button>
+       <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#signups"  >Student</button><!--modal for sign up of students via data-toggle and data-target-->
   </div>
 </div>
 
@@ -129,7 +129,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
  </div>
       <div class="form-group">
     <label for="name">Root Password</label>
-    <input type="name" class="form-control" id="name" placeholder="Enter name" name="root" required>
+    <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" required>
  </div>
       
 <div>
@@ -333,7 +333,7 @@ background: linear-gradient(to right, #92FE9D, #00C9FF);
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center" style="background-color">
         © 2018 Copyright:
-        <a href="#"> Legion Initiative</a>
+        <a href="aboutus.html"> Legion Initiative</a>
     </div>
     <!--/.Copyright-->
 

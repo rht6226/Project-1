@@ -1,5 +1,4 @@
-
-
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
     
  <script>
     function select() {
-        var items = document.getElementsByName('attend');
+        var items = document.getElementsById('attend');
         for (var i = 0; i < items.length; i++) {
             if (items[i].type == 'checkbox')
                 items[i].checked = true;
@@ -19,7 +18,7 @@
     }
 
     function unselect() {
-        var items = document.getElementsByName('attend');
+        var items = document.getElementsById('attend');
         for (var i = 0; i < items.length; i++) {
             if (items[i].type == 'checkbox')
                 items[i].checked = false;
@@ -32,7 +31,7 @@
   
  
 
-<title>Take Attendance</title>
+<title>Userlogin</title>
 
 <style>
 .titleSec {
@@ -88,7 +87,7 @@ color:snow;}
 
 
 <nav class="navbar navbar-expand-md navstyle navbar-light fixed-top">
-  <a class="navbar-brand" href="index.php">Home</a>
+  <a class="navbar-brand" href="#">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -96,13 +95,13 @@ color:snow;}
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="http://mnnit.ac.in">MNNIT</a>
+        <a class="nav-link" href="#">MNNIT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="http://academics.mnnit.ac.in">Academics</a>
+        <a class="nav-link" href="#">Academics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="aboutus.html">About Us</a>
+        <a class="nav-link" href="#">Admissions</a>
       </li>
     </ul>
   </div>
@@ -118,123 +117,66 @@ color:snow;}
         <img src="images.png" class="img-thumbnail img-fluid profilePic"></div>
       
     <div class="col-lg-4 col-sm-4 cl-md-4">
-    <h1 class="h1 display-5">Username</h1>
-    <span><br>Department | Post <br> </span>
+    <?php 
+    echo "<h3 class='h3 display-5'>".$_SESSION["name"]."</h3>";
+	?>
+    <span><br>MNNIT | Professor <br> </span>
     </div>
           <div class="col-sm-1 col-lg-1 col-md-1">
-            <button type="button" class="btn btn-sm btn-danger">Log out</button>
+            <form action="logout.php"><button type="submit" class="btn btn-sm btn-danger">Log out</button></form>
           </div>
   </div>
     
     
     <div class="container title">
-        <form action="">
+       <form action="go.php"  method="post"> 
     <div class="row justify-content-between">
         <div class="col-sm-4">
-            <?php
+        
+			<?php
                $host = "localhost";
             $username = "root";
             $password = "";
-            $database= "login";
+            $database= "id5276922_first";
             $connect = mysqli_connect($host ,$username , $password ,$database);
 if (!$connect)	{
-die("could not connect to the databse");    }
+die("Could not connect to the Database please check your internet connection");    }
             
-$st = mysqli_query($connect,"SELECT * FROM users ");
-            if(mysqli_num_rows($st))    {
-                $select = "<select name='select' class='ddmenu'>" ;
-    while($var= mysqli_fetch_array($st))   {
-          $select = $select . "<option value=" . $var['name'].">" . 
-              $var['name']. "</option>";
-                    }
-                $select.="</select>";
-                echo $select;
-            }
-            
-             
+						
+$subject=array("maths","english","physics","ed","edlab","ecology","physicslab","chemistry","chemistrylab","workshop","workshoplab","commwork","c","clab","englishlab","engmech","engmechlab");
+
+$f=$_SESSION['regno'];
+$select = "<select name='select' class='ddmenu'>" ;echo $select;$option = "<option disabled selected value>Select the group</option>";
+for($i=0;$i<17;$i++)
+{	$g=$subject[$i];
+ 	$st = mysqli_query($connect,"SELECT Batch FROM class WHERE $g='$f' ");						
+
+    	while($var= mysqli_fetch_array($st))
+		{	
+			
+			$d=$var['Batch'];
+			$n="$d $g";
+			$up= strtoupper("$n");
+			$m="$g"."_"."$d";
+    		$option = $option . "<option value=" .$m.">" . $n. "</option>";
+		}
+		
+}
+			echo $option;
+		$select="</select>";
+		echo $select;
             ?>
         </div>
         
         
         <div class="col-sm-4">
-            <input class="ddmenu" type="date">
+            <input class="ddmenu" type="date" name="date">
             <button type="submit" class="btn btn-success btn-lg">Submit</button>
             
             
         </div></div></form></div>
         
-        
-        <div class="container tableofdata">
-            
-            
-<?php
-            
-$host = "localhost";
-$username = "root";
-$password = "";
-$database= "login";
-$connect = mysqli_connect($host ,$username , $password , $database);
-if (!$connect)	{
-die("could not connect to the databse");    }
-
-$result = mysqli_query($connect , "SELECT * FROM users");
-
-echo  " <div class='container'>
-        <table class='table'>
-        <thead>
-        <tr class='success'>
-        <th>S. No. </th>
-        <th>Name</th>
-        <th>Registration Number</th>
-        <th>Branch</th>
-        <th>Present</th>
-        </tr>
-        
-        </thead>
-        <tbody>
-        <tr><td><button onclick='select()' class='btn btn-sm btn-success'>Select All</button></th><td>&nbsp;</td>
-        <td>&nbsp;</td><td>&nbsp;</td>
-        <td><button onclick='unselect()' class='btn btn-sm btn-danger'>Unselect All</button></th> </tr>";
-            
-            
-$serial = 1;
-while($var= mysqli_fetch_array($result)) {
-    echo "<tr><td>" 
-        . $serial . 
-        "</td><td>" 
-        . $var['name'] .
-        "</td><td>" 
-        . $var['reg'] .
-        "</td><td>" 
-        . $var['password'] .
-        "</td><td>" 
-        ."<form><input type='checkbox' name='attend' value='p' checked style='width:25px; height:25px;'>". 
-        "</td>" ;
-        
-        $serial = $serial +1;
-                                            }
-        
-            
-        echo"</form>
-            </tbody>
-             </table>
-             <button type='submit' class='btn btn-long btn-success' action=''>Submit Attendence</submit>";
-
-                                ?>
-    </div>
-
-
-<div class="container content">
-  <div class="row" >
-
-</div>
-
-</div>
-</div>
-    
-<div class="container">
-    
-    </div>
+<br/>
 
 <footer class="page-footer font-small mdb-color lighten-3 pt-4 mt-4 bgc">
 
@@ -324,7 +266,7 @@ while($var= mysqli_fetch_array($result)) {
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center" style="background-color">
         © 2018 Copyright:
-        <a href="aboutus.html"> Legion Initiative</a>
+        <a href="#"> Legion Initiative</a>
     </div>
     <!--/.Copyright-->
 
